@@ -18,7 +18,7 @@ const games =
         id: "blues-runner",
         title: "Blues Runner",
         thumb: "../image/blues-runner-thumb.png",
-        url: "../browser-games/blues-runner.html",
+        url: "../../browser-games/blues-runner/blues-runner.html",
         jsFile: "../browser-games/blues-runner/bluesrunnerpge.js"
     },
     {

@@ -21,13 +21,29 @@
     <div style="text-align: center;"><h2>Blues Runner</h2></div>
 
     <main class="main-layout">
-        <canvas id="game-canvas" class="game-canvas" width="800" height="600"></canvas>
+        <canvas id="game-canvas" class="game-canvas" width="800" height="600" tabindex="1" oncontextmenu="event.preventDefault()"></canvas>
     </main>
-
+    
     <script>
-      var Module = {
-        canvas: (function() { return document.getElementById('game-canvas'); })()
-      };
+        var Module = {
+          canvas: (function() {
+            var c = document.getElementById('game-canvas');
+            c.addEventListener('click', function() {
+              c.focus();
+            });
+            return c;
+          })(),
+      
+          locateFile: function(path) {
+            if (path.endsWith('.wasm')) {
+              return "../../browser-games/blues-runner/" + path;
+            }
+            if (path.endsWith('.data')) {
+              return "../../browser-games/blues-runner/" + path;
+            }
+            return path;
+          }
+        };
     </script>
     <script src="../../browser-games/blues-runner/bluesrunnerpge.js"></script>
 
