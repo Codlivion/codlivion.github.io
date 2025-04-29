@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const articleList = document.getElementById('article-list');
     const articles = [
         //{ id: ".html", title: '', description: '' },
-        { id: "codlivion-intro", title: 'How I Got Into Coding', description: 'A small article on how I started as a self-learning programmer.' }
+        { id: "codlivion-intro", title: 'How I Got Into Coding', description: 'A small article on how I started as a self-learning programmer.' },
+        { id: "codream-intro", title: 'Introduction', description: 'CoDream Studio.' }
     ];
 
     function createListItem(article) {

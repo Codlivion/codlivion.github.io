@@ -3,6 +3,7 @@ window.onload=function() {
     cx=canv.getContext("2d");
     canv.addEventListener("contextmenu", e => e.preventDefault());
     document.addEventListener("click", click);
+    canv.addEventListener("touchstart", touch);
     setInterval(update, 1000/10);
 }
 
@@ -60,7 +61,7 @@ function draw() {
         var iy = Math.floor(i / GRID_SIZE.w);
         ix = GRID_OFF.x + ix * CELL_SIZE;
         iy = GRID_OFF.y + iy * CELL_SIZE;
-        cx.fillStyle = grid[i] ? "green" : "red";
+        cx.fillStyle = grid[i] ? "rgb(0, 255, 0)" : "rgb(0, 64, 0)";
         cx.fillRect(ix, iy, CELL_SIZE, CELL_SIZE);
         cx.strokeStyle = "black";
         cx.strokeRect(ix, iy, CELL_SIZE, CELL_SIZE);
@@ -80,4 +81,13 @@ function click(e) {
     if (e.button == 0) buttons[0] = true;
     if (e.button == 1) buttons[1] = true;
     if (e.button == 2) buttons[2] = true;
+}
+
+function touch(e) {
+    e.preventDefault();
+    const rect = canv.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = (touch.clientX - rect.left) * (canv.width / rect.width);
+    mouseY = (touch.clientY - rect.top) * (canv.height / rect.height);
+    buttons[0] = true;
 }

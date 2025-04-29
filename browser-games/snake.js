@@ -2,6 +2,7 @@ window.onload=function() {
     canv=document.getElementById("game-canvas");
     cx=canv.getContext("2d");
     document.addEventListener("keydown", keyPush);
+    canv.addEventListener("touchstart", touch);
     setInterval(update, 1000/10);
 }
 
@@ -9,6 +10,7 @@ const FIELD = {w: 25, h: 25};
 const CELL_SIZE = 16;
 
 var keys = [false, false, false, false, false];
+var cRect = {x: 100, y: 100, ex: 300, ey: 300};
 
 var snake = [{x: 10, y: 10}];
 var dir = {x: 1, y: 0};
@@ -17,6 +19,8 @@ var dirChanged = false;
 var gameOver = false;
 
 var score = 0;
+
+var inGame = false;
 
 function hitSelf(x, y) {
     var hit = false;
@@ -34,6 +38,12 @@ function hitBounds(x, y) {
 }
 
 function update() {
+    if (!inGame) {
+        if (keys[0]) inGame = true;
+        draw();
+        return;
+    }
+
     if (!dirChanged) {
         var nDir = {x: 0, y: 0};
         if (keys[1] && dir.y == 0) nDir = {x: 0, y: -1};
@@ -54,6 +64,7 @@ function update() {
             dirChanged = false;
             gameOver = false;
             score = 0;
+            inGame = false;
         }
     }
     else {
@@ -87,8 +98,12 @@ function draw() {
     cx.font = "20px Arial";
     cx.textAlign = "center";
     cx.fillText(score, canv.width / 2, 16);
+    if (!inGame) {
+        cx.fillText("Press Enter to Start", canv.width / 2, canv.height / 2);
+    }
     if (gameOver) {
-        cx.fillText("GAME OVER!", canv.width / 2, canv.height / 2);
+        cx.fillText("GAME OVER!", canv.width / 2, canv.height / 2 - 16);
+        cx.fillText("Press Enter", canv.width / 2, canv.height / 2 + 16);
     }
 }
 
@@ -99,5 +114,22 @@ function keyPush(e) {
         case 38: keys[1] = true; break;
         case 39: keys[4] = true; break;
         case 40: keys[2] = true; break;
+    }
+}
+
+function touch(e) {
+    e.preventDefault();
+    const rect = canv.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = (touch.clientX - rect.left) * (canv.width / rect.width);
+    mouseY = (touch.clientY - rect.top) * (canv.height / rect.height);
+    if (mouseX > cRect.x && mouseX < cRect.ex && mouseY > cRect.y && mouseY < cRect.ey) {
+        keys[0] = true;
+    }
+    else {
+        if (mouseY < cRect.y && mouseX > cRect.x && mouseX < cRect.ex) keys[1] = true;
+        if (mouseY > cRect.ey && mouseX > cRect.x && mouseX < cRect.ex) keys[2] = true;
+        if (mouseX < cRect.x && mouseY > cRect.y && mouseY < cRect.ey) keys[3] = true;
+        if (mouseX > cRect.ex && mouseY > cRect.y && mouseY < cRect.ey) keys[4] = true;
     }
 }

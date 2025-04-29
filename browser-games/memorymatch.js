@@ -3,6 +3,7 @@ window.onload=function() {
     cx=canv.getContext("2d");
     canv.addEventListener("contextmenu", e => e.preventDefault());
     canv.addEventListener("mousedown", click);
+    canv.addEventListener("touchstart", touch);
     setInterval(update, 1000/10);
 }
 
@@ -60,7 +61,7 @@ function update() {
             visible[temp1] = "?";
             visible[temp2] = "?";
             temp1 = -1;
-                            temp2 = -1;
+            temp2 = -1;
         }
     }
 
@@ -110,24 +111,27 @@ function update() {
 function draw() {
     cx.fillStyle = "black";
     cx.fillRect(0, 0, canv.width, canv.height);
-    cx.fillStyle = "green";
-    cx.font = "20px Arial";
+    cx.fillStyle = "blue";
+    cx.font = "32px Arial";
     cx.textAlign = "center";
     for (var i = 0; i < grid.length; i++) {
         var ix = i % GRID_SIZE.w;
         var iy = Math.floor(i / GRID_SIZE.w);
         ix = GRID_OFF.x + ix * CELL_SIZE;
         iy = GRID_OFF.y + iy * CELL_SIZE;
-        cx.strokeStyle = "green";
+        cx.strokeStyle = "darkblue";
         cx.strokeRect(ix, iy, CELL_SIZE, CELL_SIZE);
-        ix += CELL_SIZE / 2;
-        iy += CELL_SIZE / 2 + 8;
         if (visible[i] != "?") {
+            ix += CELL_SIZE / 2;
+            iy += CELL_SIZE / 2 + 8;
             cx.fillText(visible[i], ix, iy);
+        }
+        else {
+            cx.fillRect(ix + 1, iy + 1, CELL_SIZE - 2, CELL_SIZE - 2);
         }
     }
     if (win) {
-        cx.fillStyle = "green";
+        cx.fillStyle = "blue";
         cx.font = "20px Arial";
         cx.textAlign = "center";
         cx.fillText("YOU WIN!", canv.width / 2, 32);
@@ -141,4 +145,13 @@ function click(e) {
     if (e.button == 0) buttons[0] = true;
     if (e.button == 1) buttons[1] = true;
     if (e.button == 2) buttons[2] = true;
+}
+
+function touch(e) {
+    e.preventDefault();
+    const rect = canv.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = (touch.clientX - rect.left) * (canv.width / rect.width);
+    mouseY = (touch.clientY - rect.top) * (canv.height / rect.height);
+    buttons[0] = true;
 }

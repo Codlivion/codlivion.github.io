@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
         <link rel="stylesheet" href="../styles/main.css">
+        <link rel="stylesheet" href="../styles/component.css">
+        <link rel="stylesheet" href="../styles/mobile.css">
         <title>Codlivion</title>
     </head>
     
@@ -15,32 +17,17 @@
             <nav>
                 <a href="../pages/codlivion.html">Developer Logs</a>
                 <a href="../pages/codream.html">CoDream</a>
-                <a href="../pages/browser-games/browser-games.html">Browser Games</a>
+                <a href="../pages/browser-games.html">Browser Games</a>
             </nav>
         </header>
         <div style="text-align: center;"><h2>CoDream</h2></div>
 
         <main class="main-layout">
-            <div class="sidebar">
-                <h4>Side Bar</h4>
-                <a href="#">Link 1</a><br>
-                <a href="#">Link 2</a><br>
-                <a href="#">Link 3</a>
-            </div>
-            <div class="content">
-                <p>This section contains news on projects from CoDream Studio.</p><br>
-                <ul id="article-list"></ul>
-            </div>
-            <div class="sidebar">
-                <h4>Side Bar</h4>
-                <a href="#">Link 1</a><br>
-                <a href="#">Link 2</a><br>
-                <a href="#">Link 3</a>
-            </div>
+            <div id ="codream-list" class="codream-list"></div>
         </main>
 
         <footer>© Ahmet Fatih Görgülü</footer>
 
-        <script src="../scripts/codream-posts.js"></script>
+        <script src="../scripts/codream-data.js"></script>
     </body>
 </html>

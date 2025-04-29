@@ -3,6 +3,7 @@ window.onload=function() {
     cx=canv.getContext("2d");
     canv.addEventListener("contextmenu", e => e.preventDefault());
     canv.addEventListener("mousedown", click);
+    canv.addEventListener("touchstart", touch);
     setInterval(update, 1000/10);
 }
 
@@ -25,7 +26,7 @@ var gameOver = false;
 
 var firstClick = true;
 
-initField(); //initField after the first click
+initField(); //initField after the first click?
 
 function intersection(x, y, w, h) {
     return x >= 0 && x < w && y >= 0 && y < h;
@@ -94,7 +95,12 @@ function update() {
                         if (grid[idx] == 0) openZeros(idx);
                         else {
                             visible[idx] = grid[idx].toString();
-                            if (grid[idx] == -1) gameOver = true;
+                            if (grid[idx] == -1) {
+                                gameOver = true;
+                                for (var i = 0; i < grid.length; i++) {
+                                    if (grid[i] == -1) visible[i] = grid[i];
+                                }
+                            }
                             else score++;
                             if (score == targetScore) win = true;
                         }
@@ -115,9 +121,8 @@ function update() {
 }
 
 function draw() {
-    cx.fillStyle = "black";
+    cx.fillStyle = "gray";
     cx.fillRect(0, 0, canv.width, canv.height);
-    cx.fillStyle = "green";
     cx.font = "20px Arial";
     cx.textAlign = "center";
     for (var i = 0; i < grid.length; i++) {
@@ -125,13 +130,17 @@ function draw() {
         var iy = Math.floor(i / GRID_SIZE.w);
         ix = GRID_OFF.x + ix * CELL_SIZE;
         iy = GRID_OFF.y + iy * CELL_SIZE;
-        cx.strokeStyle = "green";
+        cx.strokeStyle = "darkgray";
         cx.strokeRect(ix, iy, CELL_SIZE, CELL_SIZE);
-        ix += CELL_SIZE / 2;
-        iy += CELL_SIZE / 2 + 8;
+        if (visible[i] == "?" || visible[i] == "F") {
+            cx.fillStyle = "rgb(80, 80, 80)";
+            cx.fillRect(ix + 1, iy + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+        }
         if (visible[i] != "?") {
+            ix += CELL_SIZE / 2;
+            iy += CELL_SIZE / 2 + 8;
             cx.fillStyle = (visible[i] == "F" || visible[i] == "-1") ? "red" : "green";
-            cx.fillText(visible[i], ix, iy);
+            if (visible[i] != 0) cx.fillText(visible[i], ix, iy);
         }
     }
     cx.fillStyle = gameOver ? "red" : "green";
@@ -146,4 +155,13 @@ function click(e) {
     if (e.button == 0) buttons[0] = true;
     if (e.button == 1) buttons[1] = true;
     if (e.button == 2) buttons[2] = true;
+}
+
+function touch(e) {
+    e.preventDefault();
+    const rect = canv.getBoundingClientRect();
+    const touch = e.touches[0];
+    mouseX = (touch.clientX - rect.left) * (canv.width / rect.width);
+    mouseY = (touch.clientY - rect.top) * (canv.height / rect.height);
+    buttons[0] = true;
 }

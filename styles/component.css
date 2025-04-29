@@ -1,0 +1,69 @@
+.codream-list {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.codream-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: var(--panel, #222842);
+    border: 2px solid var(--accent, #64ffda);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 1rem;
+}
+
+.codream-thumb {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    justify-items: center;
+}
+  
+.game-card {
+    font-size: 0.8rem;
+    background-color: var(--panel, var(--bg));
+    color: var(--text, var(--muted));
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 180px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+  
+.game-card img.thumb {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+  
+.play-button {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--accent, var(--bg));
+    color: var(--text);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+canvas.game-canvas { 
+    display: block;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+}

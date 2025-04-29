@@ -1,0 +1,57 @@
+@media (max-width: 768px) {
+    html {
+        font-size: 12px;
+    }
+
+    body {
+        font-family: "Audiowide", sans-serif;
+        font-variant: small-caps;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+    }
+
+    header {
+        background-color: var(--panel);
+        padding: 0;
+        margin-bottom: 1rem;
+        text-align: center;
+        /*box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.4), inset -4px -4px 4px rgba(0, 0, 0, 0.4);*/
+    }
+
+    main.main-layout {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        padding-top: 0;
+        gap: 2rem;
+    }
+    
+    .sidebar {
+        flex: 1;
+        background-color: var(--panel);
+        padding: 1rem;
+        padding-top: 0;
+        /*box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.4), inset -4px -4px 4px rgba(0, 0, 0, 0.4);*/
+    }
+    
+    .content {
+        flex: 1;
+        background-color: var(--panel);
+        padding: 1rem;
+        /*box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.4), inset -4px -4px 4px rgba(0, 0, 0, 0.4);*/
+    }
+    
+    footer {
+        background-color: var(--panel);
+        padding: 1rem;
+        text-align: center;
+        /*box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.4), inset -4px -4px 4px rgba(0, 0, 0, 0.4);*/
+    }
+
+    canvas.game-canvas {
+        display: block;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
+}

@@ -18,42 +18,42 @@ const games =
         id: "blues-runner",
         title: "Blues Runner",
         thumb: "../image/blues-runner-thumb.png",
-        url: "../../browser-games/blues-runner/blues-runner.html",
-        jsFile: "../browser-games/blues-runner/bluesrunnerpge.js"
+        url: "../browser-games/blues-runner/blues-runner.html"
+    },
+    {
+        id: "chess",
+        title: "Chess++",
+        thumb: "../image/chess-thumb.png",
+        url: "../browser-games/chess/chess.html"
     },
     {
         id: "snake",
         title: "Snake",
         thumb: "../image/snake-thumb.png",
-        url: "../browser-games/snake-game.html",
-        jsFile: "../browser-games/snake.js"
+        url: "../pages/browser-games/snake-game.html"
     },
     {
         id: "minesweeper",
         title: "Minesweeper",
         thumb: "../image/minesweeper-thumb.png",
-        url: "../browser-games/minesweeper-game.html",
-        jsFile: "../browser-games/minesweeper.js"
+        url: "../pages/browser-games/minesweeper-game.html"
     },
     {
         id: "lightsout",
         title: "Lights Out",
         thumb: "../image/lightsout-thumb.png",
-        url: "../browser-games/lightsout-game.html",
-        jsFile: "../browser-games/lightsout.js"
+        url: "../pages/browser-games/lightsout-game.html"
     },
     {
         id: "connectfour",
         title: "Connect Four",
         thumb: "../image/connectfour-thumb.png",
-        url: "../browser-games/connectfour-game.html",
-        jsFile: "../browser-games/connectfour.js"
+        url: "../pages/browser-games/connectfour-game.html"
     },
     {
         id: "memorymatch",
         title: "Memory Match",
         thumb: "../image/memorymatch-thumb.png",
-        url: "../browser-games/memorymatch-game.html",
-        jsFile: "../browser-games/memorymatch.js"
+        url: "../pages/browser-games/memorymatch-game.html"
     },
 ]
