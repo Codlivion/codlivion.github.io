@@ -27,6 +27,12 @@ const games =
         url: "../browser-games/chess/chess.html"
     },
     {
+        id: "pool",
+        title: "Pool++",
+        thumb: "../image/pool-thumb.png",
+        url: "../browser-games/pool/pool.html"
+    },
+    {
         id: "snake",
         title: "Snake",
         thumb: "../image/snake-thumb.png",
