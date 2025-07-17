@@ -12,7 +12,7 @@ const GRID_SIZE = {w: 5, h: 5};
 const GRID_COUNT = GRID_SIZE.w * GRID_SIZE.h;
 const CELL_SIZE = 32;
 
-var grid = new Array(GRID_COUNT).fill(false);
+var grid = new Array(GRID_COUNT).fill(true);
 var dirs = [{x: -1, y: 0}, {x: 1, y: 0}, {x: 0, y: -1}, {x: 0, y: 1}]
 
 var buttons = [false, false, false];
@@ -24,6 +24,28 @@ function intersection(x, y, w, h) {
     return x >= 0 && x < w && y >= 0 && y < h;
 }
 
+function turnOff(idx) {
+    grid[idx] = !grid[idx];
+    for (var i = 0; i < dirs.length; i++) {
+        var nxt = {x: (idx % GRID_SIZE.w) + dirs[i].x, y: Math.floor(idx / GRID_SIZE.w) + dirs[i].y};
+        if (intersection(nxt.x, nxt.y, GRID_SIZE.w, GRID_SIZE.h)) {
+                        var nxt_idx = nxt.y * GRID_SIZE.w + nxt.x;
+                        grid[nxt_idx] = !grid[nxt_idx];
+        }
+    }
+}
+
+function restart() {
+    grid = new Array(GRID_COUNT).fill(true);
+    for (var n = 0; n < 10; n++) {
+        var idx = Math.floor(Math.random() * GRID_COUNT);
+        turnOff(idx);
+    }
+    win = false;
+}
+
+restart();
+
 function update() {
     if (buttons[0]) {
         if (!win) {
@@ -33,21 +55,11 @@ function update() {
             var clickedY = Math.floor(mouseY / CELL_SIZE);
             if (intersection(clickedX, clickedY, GRID_SIZE.w, GRID_SIZE.h)) {
                 var idx = clickedY * GRID_SIZE.w + clickedX;
-                grid[idx] = !grid[idx];
-                for (var i = 0; i < dirs.length; i++) {
-                    var nxt = {x: (idx % GRID_SIZE.w) + dirs[i].x, y: Math.floor(idx / GRID_SIZE.w) + dirs[i].y};
-                    if (intersection(nxt.x, nxt.y, GRID_SIZE.w, GRID_SIZE.h)) {
-                        var nxt_idx = nxt.y * GRID_SIZE.w + nxt.x;
-                        grid[nxt_idx] = !grid[nxt_idx];
-                    }
-                }
-                if (grid.every(b => b == true)) win = true;
+                turnOff(idx);
+                if (grid.every(b => b == false)) win = true;
             }
         }
-        else {
-            grid = new Array(GRID_COUNT).fill(false);
-            win = false;
-        }
+        else restart();
     }
     for (var i = 0; i < buttons.length; i++) buttons[i] = false;
     draw();

@@ -10,7 +10,7 @@ const FIELD = {w: 25, h: 25};
 const CELL_SIZE = 16;
 
 var keys = [false, false, false, false, false];
-var cRect = {x: 100, y: 100, ex: 300, ey: 300};
+var cRect = {x: 160, y: 160, ex: 240, ey: 240};
 
 var snake = [{x: 10, y: 10}];
 var dir = {x: 1, y: 0};
@@ -21,6 +21,10 @@ var gameOver = false;
 var score = 0;
 
 var inGame = false;
+
+function aspectRatio() {
+    return canv.width / canv.height;
+}
 
 function hitSelf(x, y) {
     var hit = false;
@@ -99,7 +103,9 @@ function draw() {
     cx.textAlign = "center";
     cx.fillText(score, canv.width / 2, 16);
     if (!inGame) {
-        cx.fillText("Press Enter to Start", canv.width / 2, canv.height / 2);
+        cx.fillText("Press Enter/Tap Center to Start", canv.width / 2, canv.height / 2);
+        cx.fillText("Press Arrow Keys/Tap Sides", canv.width / 2, canv.height / 2 + 24);
+        cx.fillText("to Control Snake", canv.width / 2, canv.height / 2 + 48);
     }
     if (gameOver) {
         cx.fillText("GAME OVER!", canv.width / 2, canv.height / 2 - 16);
@@ -123,13 +129,19 @@ function touch(e) {
     const touch = e.touches[0];
     mouseX = (touch.clientX - rect.left) * (canv.width / rect.width);
     mouseY = (touch.clientY - rect.top) * (canv.height / rect.height);
+    var diag1 = mouseY > (mouseX * aspectRatio());
+    var diag2 = mouseX < ((canv.height - mouseY) / aspectRatio());
     if (mouseX > cRect.x && mouseX < cRect.ex && mouseY > cRect.y && mouseY < cRect.ey) {
         keys[0] = true;
     }
     else {
-        if (mouseY < cRect.y && mouseX > cRect.x && mouseX < cRect.ex) keys[1] = true;
-        if (mouseY > cRect.ey && mouseX > cRect.x && mouseX < cRect.ex) keys[2] = true;
-        if (mouseX < cRect.x && mouseY > cRect.y && mouseY < cRect.ey) keys[3] = true;
-        if (mouseX > cRect.ex && mouseY > cRect.y && mouseY < cRect.ey) keys[4] = true;
+        if (diag1) {
+            if (diag2) keys[3] = true;
+            else keys[2] = true;
+        }
+        else {
+            if (diag2) keys[1] = true;
+            else keys[4] = true;
+        }
     }
 }

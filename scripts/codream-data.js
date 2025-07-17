@@ -26,7 +26,7 @@ const games =
     {
         id: "v-form",
         title: "V Form",
-        thumb: "../image/v-form.png",
+        thumb: "../image/vform-thumb.png",
         description: "8bit Retro-Style 2D Platformer",
         url: "../pages/codream/v-form.html"
     },
