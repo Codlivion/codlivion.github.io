@@ -30,4 +30,11 @@ const games =
         description: "8bit Retro-Style 2D Platformer",
         url: "../pages/codream/v-form.html"
     },
+    {
+        id: "outbreak",
+        title: "Outbreak",
+        thumb: "../image/outbreak_ss0.jpg",
+        description: "Top-Down 2D Survival Horror & Shooter",
+        url: "../pages/codream/outbreak.html"
+    },
 ]
